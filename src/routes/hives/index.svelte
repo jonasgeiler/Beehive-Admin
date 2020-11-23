@@ -1,20 +1,25 @@
 <script>
-	import { fade } from 'svelte/transition';
-	import { link } from 'svelte-spa-router';
+	import { Loading } from '@beehive/components';
+	import { checkSearch } from '@beehive/helpers';
 
 	import { hives } from '@beehive/stores';
-	import { Loading, NotFound } from '@beehive/components';
+	// noinspection ES6UnusedImports
+	import { link } from 'svelte-spa-router';
+	// noinspection ES6UnusedImports
+	import { fade } from 'svelte/transition';
 
 
 	let searchValue = '';
 </script>
 
-<section class="section-container" in:fade>
-	<h1 class="section-title">Available Hives</h1>
-	<div class="section-search">
-		<input bind:value={searchValue} type="search" class="section-search-input" placeholder="Filter Hives" />
+<section class="page-header" in:fade>
+	<h1 class="page-title">Available Hives</h1>
+	<div class="page-search">
+		<input bind:value={searchValue} type="search" class="page-search-input" placeholder="Filter Hives" />
 	</div>
+</section>
 
+<section class="page-container">
 	{#if $hives === null}
 		<Loading />
 	{:else if $hives === false}
@@ -22,10 +27,10 @@
 	{:else}
 		<ul class="hives" in:fade>
 			{#each $hives as hive (hive.id)}
-				{#if !searchValue || hive.name.toLowerCase().indexOf(searchValue.toLowerCase()) !== -1}
+				{#if checkSearch(searchValue, hive)}
 					<li class="hive">
 						<a href="/hives/{hive.id}" use:link class="hive-card" style="background-color: {hive.logocolor}">
-							<img class="hive-card-image" src={hive.image} alt="{hive.name} Logo" />
+							<img class="hive-card-image" src={hive.image} alt="Logo" />
 							<span class="hive-card-title">{hive.name}</span>
 						</a>
 					</li>
@@ -44,13 +49,7 @@
 		@apply m-2 w-full;
 	}
 
-	@screen md {
-		.hive {
-			@apply w-80;
-		}
-	}
-
-	@screen lg {
+	@screen xs {
 		.hive {
 			@apply w-96;
 		}

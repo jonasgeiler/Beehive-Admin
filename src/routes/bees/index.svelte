@@ -1,11 +1,15 @@
 <script>
-	import { fade } from 'svelte/transition';
-	import { link } from 'svelte-spa-router';
-	import formatDistanceToNow from 'date-fns/formatDistanceToNow';
-
+	import { Loading, Switch } from '@beehive/components';
+	import { checkSearch } from '@beehive/helpers';
 	import { bees } from '@beehive/stores';
-	import { Switch, Loading } from '@beehive/components';
+	import formatDistanceToNow from 'date-fns/formatDistanceToNow';
+	// noinspection ES6UnusedImports
+	import { link } from 'svelte-spa-router';
+	// noinspection ES6UnusedImports
+	import { fade } from 'svelte/transition';
 
+
+	let searchValue = '';
 
 	function formatDate(dateStr) {
 		if (dateStr === '0001-01-01T00:00:00Z') return 'never';
@@ -32,9 +36,14 @@
 	}
 </script>
 
-<section class="section-container" in:fade>
-	<h1 class="section-title">My Bees</h1>
+<section class="page-header" in:fade>
+	<h1 class="page-title">My Bees</h1>
+	<div class="page-search">
+		<input bind:value={searchValue} type="search" class="page-search-input" placeholder="Filter Bees" />
+	</div>
+</section>
 
+<section class="page-container">
 	{#if $bees === null}
 		<Loading />
 	{:else if $bees === false}
@@ -42,52 +51,54 @@
 	{:else}
 		<ul class="bees" in:fade>
 			{#each $bees as bee (bee.id)}
-				<li class="bee">
-					<div class="bee-card" style="background-color: {bee.active ? bee.namespace.logocolor : '#9ca3af'};">
+				{#if checkSearch(searchValue, bee)}
+					<li class="bee">
+						<div class="bee-card" style="background-color: {bee.active ? bee.namespace.logocolor : '#9ca3af'};">
 
-						<a href="/bees/{bee.id}" use:link class="bee-card-body">
-							<img class="bee-card-image" src={bee.namespace.image} alt="{bee.namespace.name} Logo" />
+							<a href="/bees/{bee.id}" use:link class="bee-card-body">
+								<img class="bee-card-image" src={bee.namespace.image} alt="Logo" />
 
-							<h1 class="bee-card-title">
-								{bee.name}
-							</h1>
+								<h1 class="bee-card-title">
+									{bee.name}
+								</h1>
 
-							<h2 class="bee-card-description">
-								{bee.description}
-							</h2>
+								<h2 class="bee-card-description">
+									{bee.description}
+								</h2>
 
-							<ul class="bee-card-info">
-								<li class="bee-card-info-item">
-									<svg height="24" width="24" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-										<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5.882V19.24a1.76 1.76 0 01-3.417.592l-2.147-6.15M18 13a3 3 0 100-6M5.436 13.683A4.001 4.001 0 017 6h1.832c4.1 0 7.625-1.234 9.168-3v14c-1.543-1.766-5.067-3-9.168-3H7a3.988 3.988 0 01-1.564-.317z" />
+								<ul class="bee-card-info">
+									<li class="bee-card-info-item">
+										<svg height="24" width="24" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+											<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5.882V19.24a1.76 1.76 0 01-3.417.592l-2.147-6.15M18 13a3 3 0 100-6M5.436 13.683A4.001 4.001 0 017 6h1.832c4.1 0 7.625-1.234 9.168-3v14c-1.543-1.766-5.067-3-9.168-3H7a3.988 3.988 0 01-1.564-.317z" />
+										</svg>
+										<span class="item-data">{formatDate(bee.lastaction)}</span>
+									</li>
+
+									<li class="bee-card-info-item">
+										<svg height="24" width="24" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+											<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+										</svg>
+										<span class="item-data">{formatDate(bee.lastevent)}</span>
+									</li>
+								</ul>
+							</a>
+
+							<div class="bee-card-footer">
+								<Switch toggleState={(setState, setText) => toggleBeeActive(bee, setState, setText)}
+								        initialState={bee.active}
+								        ballColor={bee.active ? bee.namespace.logocolor : '#9ca3af'}
+								        onText="Running" offText="Stopped" />
+
+								<button class="bee-card-button" on:click={() => deleteBee(bee)}>
+									<svg width="24" height="24" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+										<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
 									</svg>
-									<span class="item-data">{formatDate(bee.lastaction)}</span>
-								</li>
+								</button>
+							</div>
 
-								<li class="bee-card-info-item">
-									<svg height="24" width="24" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-										<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-									</svg>
-									<span class="item-data">{formatDate(bee.lastevent)}</span>
-								</li>
-							</ul>
-						</a>
-
-						<div class="bee-card-footer">
-							<Switch toggleState={(setState, setText) => toggleBeeActive(bee, setState, setText)}
-							        initialState={bee.active}
-							        ballColor={bee.active ? bee.namespace.logocolor : '#9ca3af'}
-							        onText="Running" offText="Stopped" />
-
-							<button class="bee-card-button" on:click={() => deleteBee(bee)}>
-								<svg width="24" height="24" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-									<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-								</svg>
-							</button>
 						</div>
-
-					</div>
-				</li>
+					</li>
+				{/if}
 			{:else}
 				<p class="text-muted">
 					You haven't created any Bees yet.<br>
@@ -104,7 +115,19 @@
 	}
 
 	.bee {
-		@apply m-2 w-72;
+		@apply m-2 w-full;
+	}
+
+	@screen xs {
+		.bee {
+			@apply w-96;
+		}
+	}
+
+	@screen sm {
+		.bee {
+			@apply w-72;
+		}
 	}
 
 	.bee-card {
@@ -121,11 +144,11 @@
 	}
 
 	.bee-card-title {
-		@apply font-extrabold text-2xl leading-none;
+		@apply font-bold text-2xl leading-none;
 	}
 
 	.bee-card-description {
-		@apply mt-2 text-sm font-bold leading-tight opacity-75;
+		@apply mt-2 text-sm font-semibold leading-tight text-opacity-75;
 	}
 
 
@@ -143,7 +166,7 @@
 
 
 	.bee-card-footer {
-		@apply p-4 pt-1 flex justify-between items-center;
+		@apply p-4 pt-1 flex flex-wrap justify-between items-center;
 	}
 
 	.bee-card-button {
