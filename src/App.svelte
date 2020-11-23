@@ -3,22 +3,26 @@
 
 	import { Navbar, NotFound } from '@beehive/components';
 
-	import AllHives from './routes/hives/index.svelte';
-	import ShowHive from './routes/hives/show.svelte';
 	import AllBees from './routes/bees/index.svelte';
 	import ShowBee from './routes/bees/show.svelte';
 	import NewBee from './routes/bees/new.svelte';
+	import AllChains from './routes/chains/index.svelte';
+	import AllHives from './routes/hives/index.svelte';
+	import ShowHive from './routes/hives/show.svelte';
 
 
 	const routes = {
 		'/': AllBees,
 
-		'/hives':       AllHives,
-		'/hives/:hive': ShowHive,
-
 		'/bees':           AllBees,
 		'/bees/new/:hive': NewBee,
 		'/bees/:bee':      ShowBee,
+
+		'/chains':       AllChains,
+		//'/chains/:hive': ShowHive,
+
+		'/hives':       AllHives,
+		'/hives/:hive': ShowHive,
 
 		'*': NotFound,
 	};
