@@ -1,6 +1,7 @@
 @tailwind base;
 @tailwind components;
 
+/** TOP-LEVEL **/
 body {
 	@apply text-lg antialiased;
 }
@@ -14,29 +15,7 @@ main#app > div#content {
 }
 
 
-.section-container {
-	@apply p-6 py-16 container mx-auto;
-}
-
-.section-title {
-	@apply mb-6 text-5xl font-bold text-center;
-}
-
-.section-search {
-	@apply mb-8 mx-auto w-3/5 max-w-2xl relative flex items-center;
-}
-
-.section-search-input {
-	background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='currentColor'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z' /%3E%3C/svg%3E");
-	background-position: 1.5rem center;
-	background-size: 24px;
-	@apply w-full py-4 pr-5 pl-16 rounded-xl shadow-md bg-no-repeat bg-gray-200 text-xl leading-none;
-}
-
-.section-search-input:focus {
-	@apply outline-none ring;
-}
-
+/** UTILS **/
 .link {
 	@apply underline;
 }
@@ -46,6 +25,54 @@ main#app > div#content {
 }
 
 
+/** PAGE **/
+.page-header {
+	@apply px-6 pt-16 mb-6 flex flex-col items-center;
+}
+
+.page-title {
+	@apply mb-6 text-5xl font-bold text-center;
+}
+
+.page-subtitle {
+	@apply -mt-4 mb-6 text-2xl font-semibold text-center text-gray-800;
+}
+
+.page-search {
+	@apply mb-8 w-full max-w-2xl relative;
+}
+
+.page-search-input {
+	background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='currentColor'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z' /%3E%3C/svg%3E");
+	background-position: 1.5rem center;
+	background-size: 24px;
+	@apply w-full py-4 pr-5 pl-16 rounded-xl shadow-md bg-no-repeat bg-gray-200 text-xl leading-none;
+}
+
+.page-search-input:focus {
+	@apply outline-none ring;
+}
+
+.page-container {
+	@apply px-10 pb-16;
+}
+
+.page-container-inner {
+	@apply w-full max-w-3xl;
+}
+
+@screen sm {
+	.page-search {
+		@apply w-3/5;
+	}
+
+	.page-container {
+		@apply flex flex-col justify-center items-center;
+	}
+}
+
+
+/** BUTTONS **/
 .btn {
 	@apply py-2.5 px-6 inline-block transition-colors duration-100 rounded-full border-2 border-transparent cursor-pointer bg-black text-white font-bold leading-none align-middle text-center whitespace-nowrap;
 }
@@ -116,6 +143,7 @@ main#app > div#content {
 }
 
 
+/** FORMS **/
 .field {
 	@apply flex flex-col;
 }
@@ -130,6 +158,10 @@ main#app > div#content {
 
 .field-label {
 	@apply mb-1 font-bold;
+}
+
+.field-description {
+	@apply mt-1 ml-1 text-base text-gray-800;
 }
 
 .field-input {

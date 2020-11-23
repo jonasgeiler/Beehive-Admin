@@ -1,11 +1,12 @@
 <script>
-	import { onDestroy } from 'svelte';
-	import { fade } from 'svelte/transition';
-	import { link } from 'svelte-spa-router';
-
+	import { Header, Loading, NotFound } from '@beehive/components';
 	import { headerBackground } from '@beehive/stores';
 	import getHive from '@beehive/stores/derived/hive';
-	import { Header, Loading, NotFound } from '@beehive/components';
+	import { onDestroy } from 'svelte';
+	// noinspection ES6UnusedImports
+	import { link } from 'svelte-spa-router';
+	// noinspection ES6UnusedImports
+	import { fade } from 'svelte/transition';
 
 
 	export let params = {};
@@ -24,7 +25,6 @@
 	<Header backgroundColor={$hive.logocolor}
 	        backLink="/hives"
 	        logo={$hive.image}
-	        logoName={$hive.name}
 	        title={$hive.name}
 	        description={$hive.description}>
 
@@ -34,10 +34,10 @@
 
 	</Header>
 
-	<div class="section-container space-y-10">
+	<div class="hive-info-section space-y-10">
 		{#if $hive.options && $hive.options.length > 0}
 			<section class="option-section">
-				<h1 class="section-title">Configuration Options</h1>
+				<h1 class="page-title">Configuration Options</h1>
 
 				<ul class="options divide-y">
 					{#each $hive.options as option}
@@ -62,8 +62,8 @@
 		{/if}
 
 		{#if $hive.events && $hive.events.length > 0}
-			<section>
-				<h1 class="section-title">Provided Events</h1>
+			<section class="event-section">
+				<h1 class="page-title">Provided Events</h1>
 
 				<ul class="events">
 					{#each $hive.events as event}
@@ -77,8 +77,8 @@
 		{/if}
 
 		{#if $hive.actions && $hive.actions.length > 0}
-			<section>
-				<h1 class="section-title">Provided Actions</h1>
+			<section class="action-section">
+				<h1 class="page-title">Provided Actions</h1>
 
 				<ul class="actions">
 					{#each $hive.actions as action}
@@ -98,9 +98,13 @@
 		@apply my-0 mx-auto text-xl shadow-md;
 	}
 
+	.hive-info-section {
+		@apply px-10 py-16;
+	}
+
 
 	.option-section {
-		@apply flex flex-col items-center;
+		@apply flex flex-col items-center mx-auto max-w-3xl;
 	}
 
 	.options {
@@ -132,12 +136,22 @@
 	}
 
 
+	.event-section, .action-section {
+		@apply max-w-4xl mx-auto;
+	}
+
 	.events, .actions {
 		@apply flex flex-wrap justify-center;
 	}
 
 	.event, .action {
-		@apply w-60 min-h-56 m-2 p-6 flex flex-col rounded-lg shadow-lg text-white cursor-pointer;
+		@apply m-2 p-6 w-full flex flex-col rounded-lg shadow-lg text-white cursor-pointer;
+	}
+
+	@screen sm {
+		.event, .action {
+			@apply w-60 min-h-56;
+		}
 	}
 
 	.event-title, .action-title {

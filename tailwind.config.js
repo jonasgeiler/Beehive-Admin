@@ -12,6 +12,9 @@ module.exports = {
 				'25': '6.25rem',
 				'31': '7.75rem'
 			},
+			screens: {
+				'xs': '464px'
+			},
 		},
 	},
 	variants: {},
