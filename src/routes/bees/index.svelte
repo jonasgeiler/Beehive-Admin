@@ -19,7 +19,7 @@
 	}
 
 	function deleteBee(bee) {
-		const confirmed = confirm('Do you really want to delete "' + bee.name + '"?');
+		const confirmed = confirm('Do you really want to delete bee "' + bee.name + '"?');
 
 		if (confirmed) {
 			bees.delete(bee.id).catch(() => alert('An error occurred!'));
