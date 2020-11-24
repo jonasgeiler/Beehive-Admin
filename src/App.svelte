@@ -7,6 +7,7 @@
 	import ShowBee from './routes/bees/show.svelte';
 	import NewBee from './routes/bees/new.svelte';
 	import AllChains from './routes/chains/index.svelte';
+	import ShowChain from './routes/chains/show.svelte';
 	import AllHives from './routes/hives/index.svelte';
 	import ShowHive from './routes/hives/show.svelte';
 
@@ -19,7 +20,7 @@
 		'/bees/:bee':      ShowBee,
 
 		'/chains':       AllChains,
-		//'/chains/:hive': ShowHive,
+		'/chains/:chain': ShowChain,
 
 		'/hives':       AllHives,
 		'/hives/:hive': ShowHive,
