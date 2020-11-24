@@ -27,7 +27,7 @@ main#app > div#content {
 
 /** PAGE **/
 .page-header {
-	@apply px-6 pt-16 mb-6 flex flex-col items-center;
+	@apply px-10 pt-16 mb-6 flex flex-col items-center;
 }
 
 .page-title {
