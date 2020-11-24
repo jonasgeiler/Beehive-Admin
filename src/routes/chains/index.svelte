@@ -31,16 +31,7 @@
 					{#if checkSearch(searchValue, chain)}
 						<li class="chain-item" style="background-color: {chain.eventBee.namespace.logocolor}">
 							<a href="/chains/{chain.id}" use:link class="chain-item-body divide-x">
-								<div class="chain-item-images space-x-2">
-									<img class="chain-item-image" src={chain.eventBee.namespace.image}>
-									<!--
-									<svg width="24" height="24" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-										<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
-									</svg>
-
-									<img class="chain-item-image" src="http://localhost:8181/images/alertoverbee.png">
-									-->
-								</div>
+								<img class="chain-item-image" src={chain.eventBee.namespace.image}>
 
 								<div class="chain-item-content">
 									<h1 class="chain-item-title">{chain.name}</h1>
@@ -62,6 +53,18 @@
 						You haven't created any Chains yet.
 					</p>
 				{/each}
+
+				<li class="chain-item fake-chain-item">
+					<a href="/chains/new" use:link class="chain-item-body divide-x">
+						<svg class="chain-item-image" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+							<path fill-rule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clip-rule="evenodd" />
+						</svg>
+
+						<div class="chain-item-content">
+							<h1 class="chain-item-title">Create Chain</h1>
+						</div>
+					</a>
+				</li>
 			</ul>
 		{/if}
 
@@ -82,12 +85,8 @@
 		@apply py-3 pl-4 flex flex-grow flex-wrap;
 	}
 
-	.chain-item-images {
-		@apply pr-4 flex items-center justify-center;
-	}
-
 	.chain-item-image {
-		@apply h-16;
+		@apply h-16 pr-4;
 	}
 
 	.chain-item-content {
@@ -121,5 +120,18 @@
 
 	.chain-item-button:focus {
 		@apply outline-none;
+	}
+
+
+	.fake-chain-item {
+		@apply mt-10 text-black shadow-none border-2 border-black border-dashed;
+	}
+
+	.fake-chain-item .chain-item-body {
+		@apply py-2;
+	}
+
+	.fake-chain-item .chain-item-title {
+		@apply text-3xl;
 	}
 </style>
