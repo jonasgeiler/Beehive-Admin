@@ -1,5 +1,5 @@
 <script>
-	import { Header, Loading, NotFound, Switch } from '@beehive/components';
+	import { Header, Loading, NotFound, BeeSwitch } from '@beehive/components';
 	import { bees, headerBackground } from '@beehive/stores';
 	import getBee from '@beehive/stores/derived/bee';
 	import { onDestroy } from 'svelte';
@@ -17,17 +17,6 @@
 	$: $bee && headerBackground.setColor($bee.active ? $bee.namespace.logocolor : '#9ca3af');
 	onDestroy(headerBackground.reset);
 
-
-	function toggleBeeActive(setState, setText) {
-		const _bee = get(bee);
-		const newActive = !_bee.active;
-
-		setText(newActive ? 'Starting...' : 'Stopping...');
-
-		bees.setActive(_bee, newActive)
-		    .then(() => setState(newActive))
-		    .catch(() => setText('Error!'));
-	}
 
 	function deleteBee() {
 		const _bee = get(bee);
@@ -57,10 +46,7 @@
 		</a>
 
 		<div slot="content">
-			<Switch toggleState={toggleBeeActive}
-			        initialState={$bee.active}
-			        ballColor={$bee.active ? $bee.namespace.logocolor : '#9ca3af'}
-			        onText="Running" offText="Stopped" big />
+			<BeeSwitch big bee={$bee} ballColor={$bee.active ? $bee.namespace.logocolor : '#9ca3af'} />
 		</div>
 
 	</Header>

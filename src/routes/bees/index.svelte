@@ -1,5 +1,5 @@
 <script>
-	import { Loading, Switch } from '@beehive/components';
+	import { BeeSwitch, Loading } from '@beehive/components';
 	import { checkSearch } from '@beehive/helpers';
 	import { bees } from '@beehive/stores';
 	import formatDistanceToNow from 'date-fns/formatDistanceToNow';
@@ -15,16 +15,6 @@
 		if (dateStr === '0001-01-01T00:00:00Z') return 'never';
 
 		return formatDistanceToNow(new Date(dateStr));
-	}
-
-	function toggleBeeActive(bee, setState, setText) {
-		const newActive = !bee.active;
-
-		setText(newActive ? 'Starting...' : 'Stopping...');
-
-		bees.setActive(bee, newActive)
-		    .then(() => setState(newActive))
-		    .catch(() => setText('Error!'));
 	}
 
 	function deleteBee(bee) {
@@ -84,10 +74,7 @@
 							</a>
 
 							<div class="bee-card-footer">
-								<Switch toggleState={(setState, setText) => toggleBeeActive(bee, setState, setText)}
-								        initialState={bee.active}
-								        ballColor={bee.active ? bee.namespace.logocolor : '#9ca3af'}
-								        onText="Running" offText="Stopped" />
+								<BeeSwitch {bee} ballColor={bee.active ? bee.namespace.logocolor : '#9ca3af'} />
 
 								<button class="bee-card-button" on:click={() => deleteBee(bee)}>
 									<svg width="24" height="24" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
