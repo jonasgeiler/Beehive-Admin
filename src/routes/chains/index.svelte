@@ -137,6 +137,6 @@
 	}
 
 	.fake-chain-item .chain-item-image {
-		@apply h-10;
+		@apply pl-3 pr-7 h-10;
 	}
 </style>
