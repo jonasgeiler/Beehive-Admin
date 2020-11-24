@@ -136,11 +136,7 @@
 		@apply mt-10 text-black shadow-none border-2 border-black border-dashed;
 	}
 
-	.fake-chain-item .chain-item-body {
-		@apply py-2;
-	}
-
-	.fake-chain-item .chain-item-title {
-		@apply text-3xl;
+	.fake-chain-item .chain-item-image {
+		@apply h-10;
 	}
 </style>
