@@ -33,9 +33,9 @@
 	<Navbar />
 </header>
 
-<div id="content">
+<main>
 	<Router {routes} restoreScrollState />
-</div>
+</main>
 
 <style global>
 	@import "./styles/global.css";

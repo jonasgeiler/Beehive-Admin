@@ -3,14 +3,10 @@
 
 /** TOP-LEVEL **/
 body {
-	@apply text-lg antialiased;
+	@apply flex flex-col h-screen text-lg antialiased;
 }
 
-main#app {
-	@apply flex flex-col h-screen;
-}
-
-main#app > div#content {
+main {
 	@apply flex-grow flex flex-col;
 }
 

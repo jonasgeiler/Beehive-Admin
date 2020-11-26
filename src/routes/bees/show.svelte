@@ -1,5 +1,5 @@
 <script>
-	import { Header, Loading, NotFound, BeeSwitch } from '@beehive/components';
+	import { BeeSwitch, Header, Loading, NotFound } from '@beehive/components';
 	import { bees, headerBackground } from '@beehive/stores';
 	import getBee from '@beehive/stores/derived/bee';
 	import { onDestroy } from 'svelte';
