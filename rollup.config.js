@@ -53,6 +53,7 @@ export default {
 
 		css({
 			output: !production ? 'bundle.css' : (styles, styleNodes) => {
+				// In production, extract App.css
 				for (let filename of Object.keys(styleNodes)) {
 					if (filename.endsWith('App.css')) {
 						writeFileSync('./dist/critical.css', styleNodes[filename]);
