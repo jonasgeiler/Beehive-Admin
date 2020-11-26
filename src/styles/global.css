@@ -90,6 +90,10 @@ main {
 	@apply bg-gray-800;
 }
 
+.btn-black:focus {
+	@apply ring-black ring-opacity-25;
+}
+
 
 .btn-danger {
 	@apply bg-red-500 text-white;
@@ -101,6 +105,10 @@ main {
 
 .btn-danger:active {
 	@apply bg-red-700;
+}
+
+.btn-danger:focus {
+	@apply ring-red-300;
 }
 
 
@@ -126,11 +134,19 @@ main {
 }
 
 .btn-outlined:active {
-	@apply border-opacity-75 bg-opacity-75 text-opacity-75;
+	@apply border-opacity-75 text-opacity-75;
+}
+
+.btn-outlined:focus {
+	@apply ring-black ring-opacity-25;
 }
 
 .btn-outlined-inverted {
-	@apply border-white border-opacity-25 bg-transparent text-white;
+	@apply border-white border-opacity-25 text-white;
+}
+
+.btn-outlined-inverted:focus {
+	@apply ring-white ring-opacity-25;
 }
 
 
