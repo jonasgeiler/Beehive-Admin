@@ -24,7 +24,7 @@
 	        backLink="/hives/{$hive.id}" />
 
 	<section class="page-header" in:fade>
-		<h1 class="page-title">My Bees</h1>
+		<h1 class="page-title">New Bee</h1>
 		<h3 class="page-subtitle">{$hive.name}</h3>
 	</section>
 

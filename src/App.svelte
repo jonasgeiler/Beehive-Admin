@@ -19,7 +19,7 @@
 		'/bees/new/:hive': NewBee,
 		'/bees/:bee':      ShowBee,
 
-		'/chains':       AllChains,
+		'/chains':        AllChains,
 		'/chains/:chain': ShowChain,
 
 		'/hives':       AllHives,
